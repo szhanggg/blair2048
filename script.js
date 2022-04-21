@@ -61,6 +61,34 @@ async function handleInput(e) {
             }
             await moveRight()
             break
+        case "w":
+            if(!canMove("up")) {
+                setupInput();
+                return;
+            }
+            await moveUp()
+            break
+        case "s":
+            if(!canMove("down")) {
+                setupInput();
+                return;
+            }
+            await moveDown()
+            break
+        case "a":
+            if(!canMove("left")) {
+                setupInput();
+                return;
+            }
+            await moveLeft()
+            break
+        case "d":
+            if(!canMove("right")) {
+                setupInput();
+                return
+            }
+            await moveRight()
+            break
         default:
             setupInput();
             return

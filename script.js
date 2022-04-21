@@ -89,6 +89,9 @@ async function handleInput(e) {
             }
             await moveRight()
             break
+        case "r":
+            newGame();
+            return;
         default:
             setupInput();
             return
@@ -110,7 +113,7 @@ async function handleInput(e) {
 
 }
 
-newGameButton.addEventListener("click", () => {
+const newGame = () => {
     (Array.from(gameBoard.children)).forEach((child) => {
         if(child.id != "end-screen") {
             child.remove();
@@ -121,6 +124,10 @@ newGameButton.addEventListener("click", () => {
     grid.randomEmptyCell().tile = new Tile(gameBoard);
     endScreen.style.display = "none";
     setupInput();
+}
+
+newGameButton.addEventListener("click", () => {
+    newGame();
 })
 
 function moveUp() {

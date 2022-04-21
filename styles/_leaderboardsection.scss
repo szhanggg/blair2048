@@ -1,0 +1,20 @@
+#leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 3px solid $mid-red;
+    padding: 1rem;
+
+    gap: 1rem;
+
+    .leaderboard-entry {
+        border: 3px solid $mid-red;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 2rem;
+    }
+}

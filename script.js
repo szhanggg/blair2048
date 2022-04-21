@@ -3,14 +3,20 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js'
+import { getFirestore, collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+
 const gameBoard = document.getElementById("game-board");
 const scoreDisplay = document.getElementById("score-amount");
 const bestDisplay = document.getElementById("best-amount");
 const endScreen = document.getElementById("end-screen");
 const newGameButton = document.getElementById("new-game-button");
 const curScoreDisplay = document.getElementById("cur-score-display");
+const leaderboardParent = document.getElementById("leaderboard");
 
 var score = 0;
+
+var lowestLb = 1000000;
 
 var grid = new Grid(gameBoard);
 
@@ -25,6 +31,51 @@ window.addEventListener("keydown", function(e) {
         e.preventDefault();
     }
 }, false);
+
+// Can't use env variables so I guess there's this. I'm just trusting y'all.
+
+const firebaseConfig = {
+
+    apiKey: atob("QUl6YVN5REVETUNpTFg5MVpJaG9FY1RrNTRQMFQ2SkJRNThwbkQ4"),
+  
+    authDomain: "blair-2048.firebaseapp.com",
+  
+    projectId: "blair-2048",
+  
+    storageBucket: "blair-2048.appspot.com",
+  
+    messagingSenderId: "349584625072",
+  
+    appId: "1:349584625072:web:d11b42354733ff07bc9a75",
+  
+    measurementId: "G-DSGFTT4F7T"
+  
+};  
+
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+const scoresCollectionRef = collection(firestore, "leaderboard-data")
+
+const getData = async () => {
+    const rawdata = await getDocs(scoresCollectionRef);
+    var data = rawdata.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
+    data.sort((a, b) => b.score - a.score);
+    if(data.length > 5) {
+        data = data.slice(0, 5);
+    }
+
+    lowestLb = data[data.length - 1].score;
+    console.log(lowestLb);
+
+    data.forEach((entry) => {
+        var leaderBoardEntry = document.createElement("div");
+        leaderBoardEntry.classList.add("leaderboard-entry");
+        leaderBoardEntry.innerText = `${entry.name} - ${entry.score}`;
+        leaderboardParent.appendChild(leaderBoardEntry);
+    })
+}
+
+getData();
 
 function setupInput() {
     updateScore();
@@ -105,12 +156,20 @@ async function handleInput(e) {
     if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
         newTile.waitForTransition(true).then(() => {
             endScreen.style.display = "flex";
+            if(score > lowestLb) {
+                var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
+                newDoc(newName, score);
+            }
         })
         return;
     }
 
     setupInput()
 
+}
+
+const newDoc = async (name, score) => {
+    const refDoc = await addDoc(scoresCollectionRef, { name: name, score: score });
 }
 
 const newGame = () => {
@@ -236,5 +295,3 @@ function getCookie(name) {
   }
 
 bestDisplay.innerText = getCookie("best") || 0;
-console.log(bestDisplay.innerText);
-

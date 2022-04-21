@@ -94,17 +94,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 3px solid hsl(9.4deg, 70.2%, 44.7%);
+  border: 2px solid hsl(9.4deg, 70.2%, 44.7%);
+  border-radius: 10px;
   padding: 1rem;
   gap: 1rem;
+  box-shadow: 1px 3px 4px black;
 }
 #leaderboard .leaderboard-entry {
-  border: 3px solid hsl(9.4deg, 70.2%, 44.7%);
+  background-color: hsl(3deg, 100%, 69%);
+  border-radius: 10px;
+  box-shadow: 1cm;
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   font-size: 2rem;
+  box-shadow: 1px 3px 4px black;
 }
 
 *, *::before, *::after {

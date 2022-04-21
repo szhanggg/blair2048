@@ -3,18 +3,24 @@
     flex-direction: column;
     align-items: center;
 
-    border: 3px solid $mid-red;
+    border: 2px solid $mid-red;
+    border-radius: 10px;
     padding: 1rem;
 
     gap: 1rem;
 
+    box-shadow: 1px 3px 4px black;
+
     .leaderboard-entry {
-        border: 3px solid $mid-red;
+        background-color: $light-red;
+        border-radius: 10px;
+        box-shadow: 1cm;
         padding: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        width: 100%;
         font-size: 2rem;
+        box-shadow: 1px 3px 4px black;
     }
 }

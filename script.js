@@ -3,9 +3,6 @@
 import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
-const processEnv = require("./process.env");
-console.log(processEnv);
-
 const gameBoard = document.getElementById("game-board");
 const scoreDisplay = document.getElementById("score-amount");
 const bestDisplay = document.getElementById("best-amount");

@@ -1,0 +1,96 @@
+.top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+
+    .top-text {
+        line-height: 1rem;
+        p {
+            color: $mid-red;
+            font-size: 1rem;
+        }
+    }
+
+    .top-right-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        .top-score {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .top-right-icons {
+
+            display: flex;
+            justify-content: center;
+
+            #new-game-button {
+                font-weight: bold;
+                background-color: $light-red;
+                border: none;
+                font-size: 1.25rem;
+                border-radius: 5%;
+                padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+
+                margin-bottom: 0.25rem;
+
+                transition: scale 200ms ease-out 0ms;
+                
+                &:hover {
+                    scale: 1.1;
+                }
+
+            }
+
+        }
+    }
+}
+
+.score-display {
+    background-color: $dark-red;
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    line-height: 0rem;
+    height: fit-content;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    border-radius: 5%;
+
+    position: relative;
+
+    p {
+        color: $light-red;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        color: $background-color;
+    }
+
+    .score-add {
+        position: absolute;
+        bottom: 0;
+        animation: ease-out 0.5s scorein forwards;
+    }
+
+}
+
+@keyframes scorein {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+        color: rgb(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+        color: rgb(122, 122, 122);
+    }
+}

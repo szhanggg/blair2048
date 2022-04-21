@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+.top-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
+}
+.top-section .top-text {
+  line-height: 1rem;
+}
+.top-section .top-text p {
+  color: hsl(9.4deg, 70.2%, 44.7%);
+  font-size: 1rem;
+}
+.top-section .top-right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.top-section .top-right-side .top-score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.top-section .top-right-side .top-right-icons {
+  display: flex;
+  justify-content: center;
+}
+.top-section .top-right-side .top-right-icons #new-game-button {
+  font-weight: bold;
+  background-color: hsl(3deg, 100%, 69%);
+  border: none;
+  font-size: 1.25rem;
+  border-radius: 5%;
+  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+  margin-bottom: 0.25rem;
+  transition: scale 200ms ease-out 0ms;
+}
+.top-section .top-right-side .top-right-icons #new-game-button:hover {
+  scale: 1.1;
+}
+
+.score-display {
+  background-color: hsl(0deg, 69%, 43%);
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0rem;
+  height: fit-content;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 5%;
+  position: relative;
+}
+.score-display p {
+  color: hsl(3deg, 100%, 69%);
+}
+.score-display h1 {
+  font-size: 1.5rem;
+  color: hsl(49deg, 52%, 96%);
+}
+.score-display .score-add {
+  position: absolute;
+  bottom: 0;
+  animation: ease-out 0.5s scorein forwards;
+}
+
+@keyframes scorein {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+    color: rgb(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+    color: rgb(122, 122, 122);
+  }
+}
+#info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.5rem;
+}
+#info-section p {
+  color: hsl(9.4deg, 70.2%, 44.7%);
+  font-size: 1rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: hsl(49deg, 52%, 96%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body h1 {
+  color: hsl(3deg, 100%, 69%);
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#game-board {
+  display: grid;
+  grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+  grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+  background-color: hsl(9.4deg, 70.2%, 44.7%);
+  gap: var(--cell-gap);
+  border-radius: 1vmin;
+  padding: var(--cell-gap);
+  position: relative;
+}
+#game-board .cell {
+  background-color: hsl(3deg, 100%, 69%);
+  border-radius: 1vmin;
+}
+#game-board .tile {
+  --x: 1;
+  --y: 2;
+  font-size: 7.5vmin;
+  font-weight: bold;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: 1vmin;
+  left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  background: hsl(49deg, 52%, 96%);
+  animation: show 200ms ease-in-out;
+  transition: 75ms ease-in-out;
+}
+#game-board .tile img {
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 2;
+  border-radius: 1vmin;
+}
+#game-board #end-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(250, 248, 239);
+  width: 100%;
+  height: 100%;
+  border-radius: 1vmin;
+  z-index: 10;
+  animation: linear 1s fadein forwards;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+#game-board #end-screen p {
+  font-size: 1.5rem;
+  color: hsl(0deg, 69%, 43%);
+}
+
+@keyframes show {
+  0% {
+    opacity: 0.5;
+    transform: scale(0);
+  }
+}
+@keyframes fadein {
+  0% {
+    background-color: rgba(250, 248, 239, 0);
+  }
+  100% {
+    background-color: rgba(250, 248, 239, 0.8);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

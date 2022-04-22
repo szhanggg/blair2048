@@ -60,8 +60,8 @@ const getData = async () => {
     const rawdata = await getDocs(scoresCollectionRef);
     var data = rawdata.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
     data.sort((a, b) => b.score - a.score);
-    if(data.length > 5) {
-        data = data.slice(0, 5);
+    if(data.length > 10) {
+        data = data.slice(0, 10);
     }
 
     lowestLb = data[data.length - 1].score;

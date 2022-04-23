@@ -25,6 +25,9 @@ grid.randomEmptyCell().tile = new Tile(gameBoard);
 
 setupInput();
 setupSwipeInput();
+gameBoard.addEventListener("touchmove", function(e) {
+    e.preventDefault();
+})
 
 //Remove the normal functionality of the 4 direction keys
 window.addEventListener("keydown", function(e) {
@@ -170,17 +173,12 @@ async function handleInput(e) {
 
 function setupSwipeInput() {
     updateScore();
-    document.addEventListener('swiped', handleSwipe, {once: true});
+    gameBoard.addEventListener('swiped', handleSwipe, {once: true});
 }
 
 async function handleSwipe(e) {
     var swipeNode = e.target;
-    if(!gameBoard.contains(swipeNode)) {
-        e.stopPropagation();
-        e.preventDefault();
-        setupSwipeInput();
-        return;
-    }
+    e.preventDefault();
     switch(e.detail.dir) {
         case "up":
             if(!canMove("up")) {

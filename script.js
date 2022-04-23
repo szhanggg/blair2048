@@ -23,7 +23,8 @@ var grid = new Grid(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 grid.randomEmptyCell().tile = new Tile(gameBoard);
 
-setupInput()
+setupInput();
+setupSwipeInput();
 
 //Remove the normal functionality of the 4 direction keys
 window.addEventListener("keydown", function(e) {
@@ -65,7 +66,6 @@ const getData = async () => {
     }
 
     lowestLb = data[data.length - 1].score;
-    console.log(lowestLb);
 
     data.forEach((entry) => {
         var leaderBoardEntry = document.createElement("div");
@@ -168,8 +168,76 @@ async function handleInput(e) {
 
 }
 
+function setupSwipeInput() {
+    updateScore();
+    document.addEventListener('swiped', handleSwipe, {once: true});
+}
+
+async function handleSwipe(e) {
+    var swipeNode = e.target;
+    if(!gameBoard.contains(swipeNode)) {
+        e.stopPropagation();
+        e.preventDefault();
+        setupSwipeInput();
+        return;
+    }
+    switch(e.detail.dir) {
+        case "up":
+            if(!canMove("up")) {
+                setupSwipeInput();
+                return;
+            }
+            await moveUp()
+            break
+        case "down":
+            if(!canMove("down")) {
+                setupSwipeInput();
+                return;
+            }
+            await moveDown()
+            break
+        case "left":
+            if(!canMove("left")) {
+                setupSwipeInput();
+                return;
+            }
+            await moveLeft()
+            break
+        case "right":
+            if(!canMove("right")) {
+                setupSwipeInput();
+                return
+            }
+            await moveRight()
+            break
+        default:
+            setupSwipeInput();
+            return
+    }
+
+    grid.cells.forEach(cell => cell.mergeTiles());
+
+    const newTile = new Tile(gameBoard);
+    grid.randomEmptyCell().tile = newTile;
+
+    if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
+        newTile.waitForTransition(true).then(() => {
+            endScreen.style.display = "flex";
+            if(score > lowestLb) {
+                var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
+                newDoc(newName, score);
+            }
+        })
+        return;
+    }
+
+    setupSwipeInput();
+
+
+}
+
 const newDoc = async (name, score) => {
-    const refDoc = await addDoc(scoresCollectionRef, { name: name, score: score });
+    await addDoc(scoresCollectionRef, { name: name, score: score });
 }
 
 const newGame = () => {
@@ -183,6 +251,7 @@ const newGame = () => {
     grid.randomEmptyCell().tile = new Tile(gameBoard);
     endScreen.style.display = "none";
     setupInput();
+    setupSwipeInput();
 }
 
 newGameButton.addEventListener("click", () => {

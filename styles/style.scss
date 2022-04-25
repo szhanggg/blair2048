@@ -87,7 +87,8 @@ body {
         }
 
         .end-screen-text {
-            animation: 1s ease-in 2s textfadein forwards;
+            display: none;
+            animation: ease-in 2s textfadein forwards;
         }
 
     }

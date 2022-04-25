@@ -165,6 +165,13 @@ async function handleInput(e) {
         newTile.waitForTransition(true).then(() => {
             timeout(500).then(() => {
                 endScreen.style.display = "flex";
+                
+                var endScreenText = endScreen.children;
+
+                for(let i = 0; i < endScreenText.length; i++) {
+                    endScreenText[i].style.display = "block";
+                }
+
                 if(score > lowestLb) {
                     var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
                     newDoc(newName, score);
@@ -229,6 +236,12 @@ async function handleSwipe(e) {
         newTile.waitForTransition(true).then(() => {
             timeout(500).then(() => {
                 endScreen.style.display = "flex";
+                var endScreenText = endScreen.children;
+
+                for(let i = 0; i < endScreenText.length; i++) {
+                    endScreenText[i].style.display = "block";
+                }
+
                 if(score > lowestLb) {
                     var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
                     newDoc(newName, score);

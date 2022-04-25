@@ -75,7 +75,7 @@ body {
         height: 100%;
         border-radius: 1vmin;
         z-index: 10;
-        animation: linear 1s fadein forwards;
+        animation: linear 2s fadein forwards;
         display: none;
         align-items: center;
         justify-content: center;
@@ -85,6 +85,11 @@ body {
             font-size: 1.5rem;
             color: $dark-red;
         }
+
+        .end-screen-text {
+            animation: 1s ease-in 2s textfadein forwards;
+        }
+
     }
 
 
@@ -103,5 +108,14 @@ body {
     }
     100% {
         background-color: rgba(250, 248, 239, 0.8);
+    }
+}
+
+@keyframes textfadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

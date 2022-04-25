@@ -29,6 +29,11 @@ gameBoard.addEventListener("touchmove", function(e) {
     e.preventDefault();
 })
 
+//Sleep function
+async function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 //Remove the normal functionality of the 4 direction keys
 window.addEventListener("keydown", function(e) {
     if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
@@ -158,11 +163,13 @@ async function handleInput(e) {
 
     if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
         newTile.waitForTransition(true).then(() => {
-            endScreen.style.display = "flex";
-            if(score > lowestLb) {
-                var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
-                newDoc(newName, score);
-            }
+            timeout(500).then(() => {
+                endScreen.style.display = "flex";
+                if(score > lowestLb) {
+                    var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
+                    newDoc(newName, score);
+                }
+            })
         })
         return;
     }
@@ -220,11 +227,13 @@ async function handleSwipe(e) {
 
     if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
         newTile.waitForTransition(true).then(() => {
-            endScreen.style.display = "flex";
-            if(score > lowestLb) {
-                var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
-                newDoc(newName, score);
-            }
+            timeout(500).then(() => {
+                endScreen.style.display = "flex";
+                if(score > lowestLb) {
+                    var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
+                    newDoc(newName, score);
+                }
+            })
         })
         return;
     }

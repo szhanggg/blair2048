@@ -4,7 +4,7 @@ import Grid from "./Grid.js";
 import Tile from "./Tile.js";
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js'
-import { getFirestore, collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
+import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js'
 
 const gameBoard = document.getElementById("game-board");
 const scoreDisplay = document.getElementById("score-amount");
@@ -69,8 +69,12 @@ const scoresCollectionRef = collection(firestore, "leaderboard-data");
 const dailyCollectionRef = collection(firestore, "daily-leaderboard");
 
 const getAllData = async () => {
-    const allRawdata = await getDocs(scoresCollectionRef);
-    const dailyRawData = await getDocs(dailyCollectionRef);
+    const allRawdataQ = query(scoresCollectionRef, orderBy("score", "desc"), limit(10));
+    const dailyRawDataQ = query(dailyCollectionRef, orderBy("score", "desc"), limit(10));
+
+    const allRawdata = await getDocs(allRawdataQ);
+    const dailyRawData = await getDocs(dailyRawDataQ);
+
 
     var allData = allRawdata.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
     var dailyData = dailyRawData.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));

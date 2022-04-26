@@ -222,7 +222,7 @@ async function deathHandle() {
         if(score > lowestLb) {
             var newName = prompt("You made the leaderboard! What's your name?");
 
-            while(newName.length > 40) {
+            while(newName.length > 30) {
                 newName = prompt("That's too long! Try again.");
             }
 

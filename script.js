@@ -316,7 +316,7 @@ async function handleSwipe(e) {
 }
 
 const newDoc = async (name, score) => {
-    if(score >= lowestAll) await addDoc(scoresCollectionRef, { name: name, score: score });
+    if(score >= lowestAll) {await addDoc(scoresCollectionRef, { name: name, score: score })};
     await addDoc(dailyCollectionRef, { name: name, score: score });
 }
 

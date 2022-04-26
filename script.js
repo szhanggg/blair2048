@@ -221,6 +221,11 @@ async function deathHandle() {
 
         if(score > lowestLb) {
             var newName = prompt("You made the leaderboard! What's your name?");
+
+            while(newName.length > 40) {
+                newName = prompt("That's too long! Try again.");
+            }
+
             newDoc(newName, score);
             document.getElementById("leaderboards-text").scrollIntoView();
             

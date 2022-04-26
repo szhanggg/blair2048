@@ -27,19 +27,6 @@
   display: flex;
   justify-content: center;
 }
-.top-section .top-right-side .top-right-icons #new-game-button {
-  font-weight: bold;
-  background-color: hsl(3deg, 100%, 69%);
-  border: none;
-  font-size: 1.25rem;
-  border-radius: 5%;
-  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
-  margin-bottom: 0.25rem;
-  transition: scale 200ms ease-out 0ms;
-}
-.top-section .top-right-side .top-right-icons #new-game-button:hover {
-  scale: 1.1;
-}
 
 .score-display {
   background-color: hsl(0deg, 69%, 43%);
@@ -90,17 +77,31 @@
   font-size: 1rem;
 }
 
-#leaderboard {
+.leaderboard-section {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+.leaderboard-section .leaderboard-area {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.leaderboard-section .leaderboard-area h1 {
+  font-size: 2rem;
+}
+.leaderboard-section .leaderboard-area .leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   border: 2px solid hsl(9.4deg, 70.2%, 44.7%);
   border-radius: 10px;
   padding: 1rem;
   gap: 1rem;
   box-shadow: 1px 3px 4px black;
 }
-#leaderboard .leaderboard-entry {
+.leaderboard-section .leaderboard-area .leaderboard .leaderboard-entry {
   background-color: hsl(3deg, 100%, 69%);
   border-radius: 10px;
   box-shadow: 1cm;
@@ -177,7 +178,7 @@ body h1 {
   height: 100%;
   border-radius: 1vmin;
   z-index: 10;
-  animation: linear 1s fadein forwards;
+  animation: linear 2s fadein forwards;
   display: none;
   align-items: center;
   justify-content: center;
@@ -187,6 +188,24 @@ body h1 {
 #game-board #end-screen p {
   font-size: 1.5rem;
   color: hsl(0deg, 69%, 43%);
+}
+#game-board #end-screen .end-screen-text {
+  display: none;
+  animation: ease-in 2s textfadein forwards;
+}
+
+button {
+  font-weight: bold;
+  background-color: hsl(3deg, 100%, 69%);
+  border: none;
+  font-size: 1.25rem;
+  border-radius: 5%;
+  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+  margin-bottom: 0.25rem;
+  transition: scale 200ms ease-out 0ms;
+}
+button:hover {
+  scale: 1.1;
 }
 
 @keyframes show {
@@ -201,6 +220,14 @@ body h1 {
   }
   100% {
     background-color: rgba(250, 248, 239, 0.8);
+  }
+}
+@keyframes textfadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

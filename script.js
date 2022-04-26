@@ -13,10 +13,12 @@ const endScreen = document.getElementById("end-screen");
 const newGameButton = document.getElementById("new-game-button");
 const curScoreDisplay = document.getElementById("cur-score-display");
 const leaderboardParent = document.getElementById("leaderboard");
+const dailyLeaderboard = document.getElementById("daily-leaderboard");
 
 var score = 0;
 
 var lowestLb = 1000000;
+var lowestAll = 1000000;
 
 var grid = new Grid(gameBoard);
 
@@ -63,27 +65,62 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
-const scoresCollectionRef = collection(firestore, "leaderboard-data")
+const scoresCollectionRef = collection(firestore, "leaderboard-data");
+const dailyCollectionRef = collection(firestore, "daily-leaderboard");
 
-const getData = async () => {
-    const rawdata = await getDocs(scoresCollectionRef);
-    var data = rawdata.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
-    data.sort((a, b) => b.score - a.score);
-    if(data.length > 10) {
-        data = data.slice(0, 10);
+const getAllData = async () => {
+    const allRawdata = await getDocs(scoresCollectionRef);
+    const dailyRawData = await getDocs(dailyCollectionRef);
+
+    var allData = allRawdata.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
+    var dailyData = dailyRawData.docs.map((doc) => ({ name: doc.data().name, score: doc.data().score }));
+
+    allData.sort((a, b) => b.score - a.score);
+    dailyData.sort((a, b) => b.score - a.score);
+
+    if(allData.length > 10) {
+        allData = allData.slice(0, 10);
     }
 
-    lowestLb = data[data.length - 1].score;
+    if(dailyData.length > 10) {
+        dailyData = dailyData.slice(0, 10);
+    }
 
-    data.forEach((entry) => {
+    if(dailyData.length > 0) {
+
+        lowestLb = dailyData[dailyData.length - 1].score;
+
+    } else {
+        lowestLb = 0;
+    }
+
+    lowestAll = allData[allData.length - 1].score;
+
+    leaderboardParent.innerHTML = "";
+
+    allData.forEach((entry) => {
         var leaderBoardEntry = document.createElement("div");
         leaderBoardEntry.classList.add("leaderboard-entry");
         leaderBoardEntry.innerText = `${entry.name} - ${entry.score}`;
         leaderboardParent.appendChild(leaderBoardEntry);
     })
+
+    dailyLeaderboard.innerHTML = "";
+
+    dailyData.forEach((entry) => {
+        var leaderBoardEntry = document.createElement("div");
+        leaderBoardEntry.classList.add("leaderboard-entry");
+        leaderBoardEntry.innerText = `${entry.name} - ${entry.score}`;
+        dailyLeaderboard.appendChild(leaderBoardEntry);
+    })
+
 }
 
-getData();
+getAllData();
+
+document.getElementById("refresh-button").addEventListener("click", () => {
+    getAllData();
+})
 
 function setupInput() {
     updateScore();
@@ -163,26 +200,35 @@ async function handleInput(e) {
 
     if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
         newTile.waitForTransition(true).then(() => {
-            timeout(500).then(() => {
-                endScreen.style.display = "flex";
-                
-                var endScreenText = endScreen.children;
-
-                for(let i = 0; i < endScreenText.length; i++) {
-                    endScreenText[i].style.display = "block";
-                }
-
-                if(score > lowestLb) {
-                    var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
-                    newDoc(newName, score);
-                }
-            })
+            deathHandle();
         })
         return;
     }
 
     setupInput()
 
+}
+
+async function deathHandle() {
+    timeout(500).then(() => {
+        endScreen.style.display = "flex";
+        
+        var endScreenText = endScreen.children;
+
+        for(let i = 0; i < endScreenText.length; i++) {
+            endScreenText[i].style.display = "block";
+        }
+
+        if(score > lowestLb) {
+            var newName = prompt("You made the leaderboard! What's your name?");
+            newDoc(newName, score);
+            document.getElementById("leaderboards-text").scrollIntoView();
+            
+            timeout(500).then(() => getAllData())
+
+        }
+
+    })
 }
 
 function setupSwipeInput() {
@@ -234,19 +280,7 @@ async function handleSwipe(e) {
 
     if(!canMove("up") && !canMove("down") && !canMove("left") && !canMove("right")) {
         newTile.waitForTransition(true).then(() => {
-            timeout(500).then(() => {
-                endScreen.style.display = "flex";
-                var endScreenText = endScreen.children;
-
-                for(let i = 0; i < endScreenText.length; i++) {
-                    endScreenText[i].style.display = "block";
-                }
-
-                if(score > lowestLb) {
-                    var newName = prompt("You made the leaderboard! What's your name? Refresh to see an updated leaderboard.");
-                    newDoc(newName, score);
-                }
-            })
+            deathHandle();
         })
         return;
     }
@@ -257,7 +291,8 @@ async function handleSwipe(e) {
 }
 
 const newDoc = async (name, score) => {
-    await addDoc(scoresCollectionRef, { name: name, score: score });
+    if(score >= lowestAll) await addDoc(scoresCollectionRef, { name: name, score: score });
+    await addDoc(dailyCollectionRef, { name: name, score: score });
 }
 
 const newGame = () => {

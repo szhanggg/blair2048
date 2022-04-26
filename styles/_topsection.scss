@@ -27,24 +27,6 @@
             display: flex;
             justify-content: center;
 
-            #new-game-button {
-                font-weight: bold;
-                background-color: $light-red;
-                border: none;
-                font-size: 1.25rem;
-                border-radius: 5%;
-                padding: 0.75rem 1.25rem 0.75rem 1.25rem;
-
-                margin-bottom: 0.25rem;
-
-                transition: scale 200ms ease-out 0ms;
-                
-                &:hover {
-                    scale: 1.1;
-                }
-
-            }
-
         }
     }
 }

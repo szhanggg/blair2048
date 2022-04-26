@@ -101,7 +101,17 @@ const getAllData = async () => {
     allData.forEach((entry) => {
         var leaderBoardEntry = document.createElement("div");
         leaderBoardEntry.classList.add("leaderboard-entry");
-        leaderBoardEntry.innerText = `${entry.name} - ${entry.score}`;
+
+        var leaderBoardEntryName = document.createElement("div");
+        leaderBoardEntryName.classList.add("leaderboard-entry-name");
+        leaderBoardEntryName.innerText = entry.name;
+        leaderBoardEntry.appendChild(leaderBoardEntryName);
+
+        var leaderBoardEntryScore = document.createElement("div");
+        leaderBoardEntryScore.classList.add("leaderboard-entry-score");
+        leaderBoardEntryScore.innerText = entry.score;
+        leaderBoardEntry.appendChild(leaderBoardEntryScore);
+
         leaderboardParent.appendChild(leaderBoardEntry);
     })
 
@@ -110,7 +120,17 @@ const getAllData = async () => {
     dailyData.forEach((entry) => {
         var leaderBoardEntry = document.createElement("div");
         leaderBoardEntry.classList.add("leaderboard-entry");
-        leaderBoardEntry.innerText = `${entry.name} - ${entry.score}`;
+
+        var leaderBoardEntryName = document.createElement("div");
+        leaderBoardEntryName.classList.add("leaderboard-entry-name");
+        leaderBoardEntryName.innerText = entry.name;
+        leaderBoardEntry.appendChild(leaderBoardEntryName);
+
+        var leaderBoardEntryScore = document.createElement("div");
+        leaderBoardEntryScore.classList.add("leaderboard-entry-score");
+        leaderBoardEntryScore.innerText = entry.score;
+        leaderBoardEntry.appendChild(leaderBoardEntryScore);
+
         dailyLeaderboard.appendChild(leaderBoardEntry);
     })
 

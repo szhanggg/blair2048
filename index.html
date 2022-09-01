@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Blair 2048</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css" />
     <script src="./script.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/gh/john-doherty/swiped-events@master/dist/swiped-events.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="top-section">
-        <div class="top-text">
-            <h1>Blair 2048</h1>
-            <p>For info and/or help check <a href="#info-section">here</a>.</p>
-            <p>If you do well you might make it onto the <a href="#leaderboards-text">leaderboard</a>.</p>
-            <p>Some images might take some time to load.</p>
+      <div class="top-text">
+        <h1>Blair 2048</h1>
+        <p>For info and/or help check <a href="#info-section">here</a>.</p>
+        <p>
+          If you do well you might make it onto the
+          <a href="#leaderboards-text">leaderboard</a>.
+        </p>
+        <p>Some images might take some time to load.</p>
+      </div>
+      <div class="top-right-side">
+        <div class="top-score">
+          <div class="score-display" id="cur-score-display">
+            <p>Score</p>
+            <h1 id="score-amount">1000</h1>
+            <h1 class="score-add">6</h1>
+          </div>
+          <div class="score-display">
+            <p>Best</p>
+            <h1 id="best-amount">0</h1>
+          </div>
         </div>
-        <div class="top-right-side">
-            <div class="top-score">
-                <div class="score-display" id="cur-score-display">
-                    <p>Score</p>
-                    <h1 id="score-amount">1000</h1>
-                    <h1 class="score-add">6</h1>
-                </div>
-                <div class="score-display">
-                    <p>Best</p>
-                    <h1 id="best-amount">0</>
-                </div>
-            </div>
-            <div class="top-right-icons">
-                <button id="new-game-button">
-                    New Game
-                </button>
-            </div>
+        <div class="top-right-icons">
+          <button id="new-game-button">New Game</button>
         </div>
+      </div>
     </div>
     <div id="game-board">
-        <div id="end-screen">
-            <div class="end-screen-text">
-                <h1>
-                    Game Over
-                </h1>
-            </div>
-            <div class="end-screen-text">
-                <p>
-                    Press New Game to Start Again.
-                </p>
-            </div>
+      <div id="end-screen">
+        <div class="end-screen-text">
+          <h1>Game Over</h1>
         </div>
+        <div class="end-screen-text">
+          <p>Press New Game to Start Again.</p>
+        </div>
+      </div>
     </div>
     <div id="info-section">
-        <h1>Info</h1>
-        <p>Blair 2048 is 2048 but with pictures of Blair co'25 people.</p>
-        <p>If your image is on here and you want it off or changed, dm me on discord szhang#5660.</p>
-        <h2>List</h2>
-        <p>2 - Kripa</p>
-        <p>4 - Milo</p>
-        <p>8 -Shriyan </p>
-        <p>16 - Arcady</p>
-        <p>32 - Nikhita</p>
-        <p>64 - Dhruva</p>
-        <p>128 - Edith</p>
-        <p>256 - Sophia/Tiffany</p>
-        <p>512 - Yun</p>
-        <p>1024 - Jing Jing</p>
-        <p>2048 - Eva</p>
-        <p>4096 - Esther</p>
-        <p>8192 - Voo</p>
-        <p>16384 - ???</p>
-        <p>32768 - ???</p>
+      <h1>Info</h1>
+      <p>Blair 2048 is 2048 but with pictures of Blair co'25 people.</p>
+      <p>
+        If your image is on here and you want it off or changed, dm me on
+        discord szhang#5660.
+      </p>
+      <h2>List</h2>
+      <p>2 - Kripa</p>
+      <p>4 - Milo</p>
+      <p>8 -Shriyan</p>
+      <p>16 - Arcady</p>
+      <p>32 - Nikhita</p>
+      <p>64 - Dhruva</p>
+      <p>128 - Edith</p>
+      <p>256 - Sophia/Tiffany</p>
+      <p>512 - Yun</p>
+      <p>1024 - Jing Jing</p>
+      <p>2048 - Eva</p>
+      <p>4096 - Esther</p>
+      <p>8192 - Voo</p>
+      <p>16384 - ???</p>
+      <p>32768 - ???</p>
     </div>
 
     <h1 id="leaderboards-text">Leaderboards</h1>
@@ -75,21 +74,14 @@
     <button id="refresh-button">Refresh</button>
 
     <div class="leaderboard-section">
-
-        <div class="leaderboard-area">
-            <h1>
-                All-Time Leaderboard
-            </h1>
-            <div id="leaderboard" class="leaderboard">
-                
-            </div>
-        </div>
-        <div class="leaderboard-area">
-            <h1>
-                Daily Leaderboard
-            </h1>
-            <div id="daily-leaderboard" class="leaderboard"></div>
-        </div>
+      <div class="leaderboard-area">
+        <h1>Leaderboard (2022-2023)</h1>
+        <div id="leaderboard" class="leaderboard"></div>
+      </div>
+      <div class="leaderboard-area">
+        <h1>Daily Leaderboard</h1>
+        <div id="daily-leaderboard" class="leaderboard"></div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
